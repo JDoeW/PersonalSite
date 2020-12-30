@@ -8,6 +8,7 @@ django = "==2.1.*"
 pymysql = "*"
 django-password-reset = "*"
 markdown = "*"
+pygments = "*"
 
 [dev-packages]
 
