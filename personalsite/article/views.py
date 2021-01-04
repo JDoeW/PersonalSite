@@ -44,3 +44,26 @@ def article_create(request):
         context = {'article_post_form': article_post_form}
         return render(request, 'article/create.html', context)
 
+
+def article_safe_delete(request, id):
+    article = ArticlePost.objects.get(id=id)
+    article.delete()
+    return redirect('article:article_list')
+
+
+def article_update(request, id):
+    article = ArticlePost.objects.get(id=id)
+    if 'POST' == request.method:
+        article_post_form = ArticleForm(data=request.POST)
+        if article_post_form.is_valid():
+            article.title = request.POST['title']
+            article.body = request.POST['body']
+            article.save()
+            return redirect('article:article_list', id=id)
+        else:
+            return HttpResponse('表单内容有误, 请重新输入')
+     else:
+        article_post_form = ArticleForm()
+        context = {'article': article, 'article_post_form': article_post_form}
+        return render(request, 'article/update.html', context)
+
