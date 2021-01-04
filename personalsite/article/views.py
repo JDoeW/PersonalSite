@@ -59,10 +59,10 @@ def article_update(request, id):
             article.title = request.POST['title']
             article.body = request.POST['body']
             article.save()
-            return redirect('article:article_list', id=id)
+            return redirect('article:article_list') 
         else:
             return HttpResponse('表单内容有误, 请重新输入')
-     else:
+    else:
         article_post_form = ArticleForm()
         context = {'article': article, 'article_post_form': article_post_form}
         return render(request, 'article/update.html', context)
