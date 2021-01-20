@@ -3,7 +3,7 @@ from .models import ArticlePost
 
 
 # forms.ModelForm适用于与数据库交互, 比如新建、更新字段
-class ArticleForm(forms.ModelForm):
+class ArticlePostForm(forms.ModelForm):
     class Meta:
         # 指定数据模型来源
         model = ArticlePost

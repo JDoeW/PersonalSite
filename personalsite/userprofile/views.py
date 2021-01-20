@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserLoginForm
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def user_login(request):
@@ -26,4 +26,9 @@ def user_login(request):
         return render(request, 'userprofile/login.html', context)
     else:
         return HttpResponse('请使用GET或者POST方法请求数据')
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('article:article_list')
 

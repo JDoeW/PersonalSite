@@ -2,7 +2,7 @@ import markdown
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import ArticlePost
-from .forms import ArticleForm
+from .forms import ArticlePostForm
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -54,16 +54,16 @@ def article_safe_delete(request, id):
 def article_update(request, id):
     article = ArticlePost.objects.get(id=id)
     if 'POST' == request.method:
-        article_post_form = ArticleForm(data=request.POST)
+        article_post_form = ArticlePostForm(data=request.POST)
         if article_post_form.is_valid():
             article.title = request.POST['title']
             article.body = request.POST['body']
             article.save()
-            return redirect('article:article_list') 
+            return redirect('article:article_detail', id=id)
         else:
-            return HttpResponse('表单内容有误, 请重新输入')
+            return HttpResponse("表单内容有误, 请重新填写!")
     else:
-        article_post_form = ArticleForm()
+        article_post_form = ArticlePostForm()
         context = {'article': article, 'article_post_form': article_post_form}
         return render(request, 'article/update.html', context)
 
